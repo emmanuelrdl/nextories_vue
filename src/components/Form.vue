@@ -6,7 +6,7 @@
           <b-form-group >
             <b-form-input
                           type="text"
-                          v-model="form.name"
+                          v-model="name"
                           @change="formChange"
                           required
                           placeholder="Nom du meuble">
@@ -14,7 +14,7 @@
           </b-form-group>
           <b-form-group >
             <b-form-input
-                          v-model="form.length"
+                          v-model="length"
                           required
                           @change="formChange"
                           placeholder="Longueur (cm)">
@@ -22,7 +22,7 @@
           </b-form-group>
           <b-form-group >
             <b-form-input
-                          v-model="form.width"
+                          v-model="width"
                           required
                           @change="formChange"
                           placeholder="Largeur (cm)">
@@ -30,7 +30,7 @@
           </b-form-group>
           <b-form-group >
             <b-form-input
-                          v-model="form.height"
+                          v-model="height"
                           required
                           @change="formChange"
                           placeholder="Hauteur (cm)">
@@ -54,33 +54,32 @@
 export default {
   data () {
     return {
-      form: {
-        name: null,
-        height: null,
-        width: null,
-        length: null,
-      },
+      name: null,
+      height: null,
+      width: null,
+      length: null,
       volume: null,
     }
   },
   methods: {
     onSubmit (evt) {
       evt.preventDefault();
-      this.volume = this.getVolume(this.form);
+      this.volume = this.getVolume();
+      if (this.formIsValid()) this.$emit('newFourniture', this.$data);
     },
     getVolume(form){
-      var height = form.height
-      var width  = form.width
-      var length = form.length
-      var volInCm  = parseInt(height) * parseInt(width) * parseInt(length)
-      return volInCm/100
+      var height = this.height;
+      var width  = this.width;
+      var length = this.length;
+      var volInCm  = parseInt(height) * parseInt(width) * parseInt(length);
+      return volInCm/100;
     },
     formIsValid(){
-      return this.form.height && this.form.width && this.form.length
+      return this.name && this.height && this.width && this.length;
     },
     formChange(){
       if (this.formIsValid()) {
-        this.volume = this.getVolume(this.form);
+        this.volume = this.getVolume();
       }
     }
   }
