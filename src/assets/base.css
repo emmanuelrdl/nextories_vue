@@ -1,0 +1,12 @@
+.volume-card {
+  background-color: #E6EAEC;
+  height: 100px;
+  border-radius: 5px;
+  margin-bottom: 60px;
+  padding: 10px;
+}
+
+.form-control {
+  border: transparent;
+  border-bottom: solid #E6EAEC 3px;
+}
