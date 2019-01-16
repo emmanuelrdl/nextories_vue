@@ -38,7 +38,7 @@
           </b-form-group>
         </b-col>
         <b-col cols="4">
-          <div class="volume-card">
+          <div class="single-volume-card">
             Volume (m3):
             <br>
             {{volume}}

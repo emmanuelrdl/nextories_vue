@@ -7,7 +7,7 @@
   margin-top: 60px;
 }
 
-.volume-card {
+.single-volume-card {
   background-color: #E6EAEC;
   height: 100px;
   border-radius: 5px;
@@ -15,7 +15,33 @@
   padding: 10px;
 }
 
+.total-volume-card {
+  background-color: #E6EAEC;
+  border-radius: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 25px;
+}
+
 .form-control {
   border: transparent;
   border-bottom: solid #E6EAEC 3px;
+}
+
+.btn-delete {
+  cursor: pointer;
+  background-color: #E6EAEC;
+  color: white;
+  font-weight: 900;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  text-align: center;
+  border: solid #E6EAEC 3px;
+  margin-bottom: 10px;
+}
+
+.flex-card-header {
+  display: flex;
+  justify-content: space-between;
 }

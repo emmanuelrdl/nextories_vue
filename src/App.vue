@@ -12,13 +12,15 @@
       </b-row>
       <b-row>
           <b-col cols="12">
-            <div style="display: flex;justify-content: space-between;">
-              <div class="pull-left">
+            <div class="flex-card-header">
+              <h2 class="pull-left">
                 Inventaire
-                <span @click="removeFournitures">x</span>
-              </div>
-
-              <div>Volume Total: {{totalVolume}}</div>
+              </h2>
+              <div class="btn-delete pull-left" @click="removeFournitures">x</div>
+              <h2 >
+                Volume Total:
+                <span class="total-volume-card">{{totalVolume.toString().substring(0, 4)}} m3</span>
+              </h2>
             </div>
             <Inventory
               v-bind:fournitures="fournitures"
@@ -62,6 +64,11 @@ export default {
         }
       }
       this.fournitures = existingFournitures;
+      this.totalVolume = 0;
+      for (var i = 0; i < this.fournitures.length; i++) {
+        this.totalVolume += this.fournitures[i].volume;
+      }
+      console.log(this.totalVolume);
     },
     removeFournitures() {
       var existingFournitures = this.fournitures;
@@ -73,6 +80,10 @@ export default {
         }
       }
       this.fournitureIdsForRemoval = [];
+      for (var i = 0; i < this.fournitures.length; i++) {
+        this.totalVolume -= this.fournitures[i].volume;
+      }
+      console.log(this.totalVolume);
     },
     getItemToDelete(fournitureIdForRemoval){
       return this.fournitures.filter(fourniture => fournitureIdForRemoval == fourniture.id);

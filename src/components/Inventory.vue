@@ -2,15 +2,14 @@
   <div>
     <b-card>
       <div v-for="fourniture in fournitures">
-        <div style="display: flex;justify-content: space-between;">
+        <div class="flex-card-header">
           <input
             type="checkbox"
             :id="fourniture.id"
             :checked="false"
             @change="changeRemovalState(fourniture, $event)">
-          <div >{{fourniture.id}}</div>
           <div >{{fourniture.name}}</div>
-          <div @click="removeFourniture(fourniture)">x</div>
+          <div class="btn-delete" @click="removeFourniture(fourniture)">x</div>
         </div>
       </div>
     </b-card>
