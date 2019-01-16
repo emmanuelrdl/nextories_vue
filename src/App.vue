@@ -13,12 +13,17 @@
       <b-row>
           <b-col cols="12">
             <div style="display: flex;justify-content: space-between;">
-              <div class="pull-left">Inventaire</div>
+              <div class="pull-left">
+                Inventaire
+                <span @click="removeFournitures">x</span>
+              </div>
+
               <div>Volume Total: {{totalVolume}}</div>
             </div>
             <Inventory
               v-bind:fournitures="fournitures"
               v-on:removeFourniture="removeFourniture"
+              v-on:updateFournitureIdsForRemoval="updateFournitureIdsForRemoval"
             />
           </b-col>
       </b-row>
@@ -35,6 +40,7 @@ export default {
   data () {
     return {
       fournitures: [],
+      fournitureIdsForRemoval: [],
       totalVolume: 0
     }
   },
@@ -56,6 +62,23 @@ export default {
         }
       }
       this.fournitures = existingFournitures;
+    },
+    removeFournitures() {
+      var existingFournitures = this.fournitures;
+      for (var i = 0; i < this.fournitureIdsForRemoval.length; i++){
+        var item = this.getItemToDelete(this.fournitureIdsForRemoval[i]);
+        var itemIndex = this.fournitures.indexOf(item[0]);
+        if (itemIndex >= 0){
+          this.fournitures.splice(itemIndex, 1);
+        }
+      }
+      this.fournitureIdsForRemoval = [];
+    },
+    getItemToDelete(fournitureIdForRemoval){
+      return this.fournitures.filter(fourniture => fournitureIdForRemoval == fourniture.id);
+    },
+    updateFournitureIdsForRemoval(values){
+      this.fournitureIdsForRemoval = values;
     }
   },
   components: {
