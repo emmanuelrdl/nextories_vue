@@ -39,9 +39,9 @@
         </b-col>
         <b-col cols="4">
           <div class="single-volume-card">
-            Volume (m3):
+            <h5>Volume (m3):</h5>
             <br>
-            {{volume}}
+            <h5>{{volume}}</h5>
           </div>
           <b-button type="submit" variant="primary">AJOUTER</b-button>
         </b-col>
@@ -60,7 +60,7 @@ export default {
       height: null,
       width: null,
       length: null,
-      volume: null,
+      volume: null
     }
   },
   methods: {
@@ -78,6 +78,22 @@ export default {
       return volInCm/100;
     },
     formIsValid(){
+      if (this.completedForm() && this.validTypes()){
+        return true;
+      }
+      return false;
+    },
+    validTypes(){
+      var props = ['height', 'width', 'length'];
+      for (var i = 0; i < 3; i++){
+        if (!this[props[i]].match(/[1-9]/g)) {
+          alert('cannot calculate volume');
+          return false;
+        }
+      }
+      return true;
+    },
+    completedForm(){
       return this.name && this.height && this.width && this.length;
     },
     formChange(){
@@ -87,9 +103,9 @@ export default {
     },
     fakeId(){
       if (this.fournitures.length === 0){
-        return 1
+        return 1;
       } else {
-        return this.fournitures[this.fournitures.length -1].id + 1
+        return this.fournitures[this.fournitures.length -1].id + 1;
       }
     }
   }

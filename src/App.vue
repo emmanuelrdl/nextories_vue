@@ -15,11 +15,11 @@
             <div class="flex-card-header">
               <h2 class="pull-left">
                 Inventaire
+                <span class="btn-global-delete" @click="removeFournitures">x</span>
               </h2>
-              <div class="btn-delete pull-left" @click="removeFournitures">x</div>
-              <h2 >
+              <h2 class="pull-right">
                 Volume Total:
-                <span class="total-volume-card">{{totalVolume.toString().substring(0, 4)}} m3</span>
+                <span class="total-volume-card">{{totalVolume.toFixed(2)}} m3</span>
               </h2>
             </div>
             <Inventory
@@ -51,7 +51,8 @@ export default {
       var newFourniture = {
         id: fourniture.id,
         name: fourniture.name,
-        volume: fourniture.volume
+        volume: fourniture.volume,
+        selectedForDeletion: false
       };
       this.totalVolume += fourniture.volume;
       this.fournitures.push(newFourniture);
@@ -64,11 +65,7 @@ export default {
         }
       }
       this.fournitures = existingFournitures;
-      this.totalVolume = 0;
-      for (var i = 0; i < this.fournitures.length; i++) {
-        this.totalVolume += this.fournitures[i].volume;
-      }
-      console.log(this.totalVolume);
+      this.setTotalVolume();
     },
     removeFournitures() {
       var existingFournitures = this.fournitures;
@@ -80,16 +77,19 @@ export default {
         }
       }
       this.fournitureIdsForRemoval = [];
-      for (var i = 0; i < this.fournitures.length; i++) {
-        this.totalVolume -= this.fournitures[i].volume;
-      }
-      console.log(this.totalVolume);
+      this.setTotalVolume();
     },
     getItemToDelete(fournitureIdForRemoval){
       return this.fournitures.filter(fourniture => fournitureIdForRemoval == fourniture.id);
     },
     updateFournitureIdsForRemoval(values){
       this.fournitureIdsForRemoval = values;
+    },
+    setTotalVolume(){
+      this.totalVolume = 0;
+      for (var i = 0; i < this.fournitures.length; i++) {
+        this.totalVolume += this.fournitures[i].volume;
+      }
     }
   },
   components: {
